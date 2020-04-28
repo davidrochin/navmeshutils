@@ -10,7 +10,7 @@ namespace DavidRochin {
         
         public static Vector3[] MovePosition(Vector3 position, Vector3 delta, int quality = 5) {
 
-            Debug.Log($"Initial magnitude = {delta.magnitude}");
+            //Debug.Log($"Initial magnitude = {delta.magnitude}");
 
             position = Place(position);
 
@@ -24,15 +24,15 @@ namespace DavidRochin {
                     Vector3 safeHitPosition = hit.position - delta.normalized * 0.01f;
                     points.Add(safeHitPosition);
 
-                    Debug.Log($"[{i}] Hit Distance = {hit.distance}");
+                    //Debug.Log($"[{i}] Hit Distance = {hit.distance}");
                     Vector3 remainingDelta = delta - delta.normalized * (hit.distance - 0.01f);
 
                     position = safeHitPosition;
 
-                    Debug.Log($"[{i}] Remaining magnitude = {remainingDelta.magnitude}");
+                    //Debug.Log($"[{i}] Remaining magnitude = {remainingDelta.magnitude}");
                     delta = CalculateSlide(remainingDelta, hit.normal);
 
-                    Debug.Log($"[{i}] delta.magnitude = {delta.magnitude}");
+                    //Debug.Log($"[{i}] delta.magnitude = {delta.magnitude}");
                     
                 } else {
                     points.Add(position + delta);
