@@ -1,0 +1,17 @@
+{
+  "name": "davidrochin.utils.navmesh",
+  "version": "0.1",
+  "displayName": "NavMesh Utils",
+  "description": "This is an example package",
+  "unity": "2019.3",
+  "dependencies": { },
+ "keywords": [
+    "navmesh",
+    "utils"
+  ],
+  "author": {
+    "name": "David Rochin",
+    "email": "jdrc8@hotmail.com",
+    "url": "https://www.unity3d.com"
+  }
+}
