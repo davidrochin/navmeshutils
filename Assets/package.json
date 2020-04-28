@@ -1,11 +1,11 @@
 {
   "name": "davidrochin.utils.navmesh",
-  "version": "0.1",
+  "version": "0.0.1",
   "displayName": "NavMesh Utils",
   "description": "This is an example package",
   "unity": "2019.3",
   "dependencies": { },
- "keywords": [
+  "keywords": [
     "navmesh",
     "utils"
   ],
