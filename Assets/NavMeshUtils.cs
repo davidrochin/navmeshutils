@@ -98,12 +98,18 @@ namespace DavidRochin {
         }
 
         public static Vector3 Place(Vector3 point, float maxDistance = 2f, int areaMask = NavMesh.AllAreas) {
+            return Place(point, out _, maxDistance, areaMask);
+        }
+
+        public static Vector3 Place(Vector3 point, out bool couldPlace, float maxDistance = 2f, int areaMask = NavMesh.AllAreas) {
             NavMeshHit hit;
             bool valid = NavMesh.SamplePosition(point, out hit, maxDistance, NavMesh.AllAreas);
             if (valid) {
+                couldPlace = true;
                 return hit.position;
             } else {
-                throw new System.Exception("Could not place point on Nav Mesh");
+                couldPlace = false;
+                return point;
             }
             
         }
