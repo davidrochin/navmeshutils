@@ -8,7 +8,7 @@ namespace DavidRochin {
 
     public static class NavMeshUtils {
         
-        public static Vector3 SlidePoint(Vector3 position, Vector3 delta, out Vector3[] path, int quality = 5) {
+        public static Vector3 SlidePoint(Vector3 position, Vector3 delta, out Vector3[] path, int quality = 5, int areaMask = NavMesh.AllAreas) {
             //Debug.Log($"Initial magnitude = {delta.magnitude}");
 
             List<Vector3> points = new List<Vector3>();
@@ -17,7 +17,7 @@ namespace DavidRochin {
             for (int i = 0; i < quality; i++) {
 
                 NavMeshHit hit;
-                if (NavMesh.Raycast(position, position + delta, out hit, NavMesh.AllAreas)) {
+                if (NavMesh.Raycast(position, position + delta, out hit, areaMask)) {
                     Vector3 safeHitPosition = hit.position - delta.normalized * 0.01f;
                     points.Add(safeHitPosition);
 
@@ -43,11 +43,11 @@ namespace DavidRochin {
         }
 
         [System.Obsolete]
-        public static Vector3[] MovePosition(Vector3 position, Vector3 delta, int quality = 5) {
+        public static Vector3[] MovePosition(Vector3 position, Vector3 delta, int quality = 5, int areaMask = NavMesh.AllAreas) {
 
             //Debug.Log($"Initial magnitude = {delta.magnitude}");
 
-            position = Place(position);
+            position = Place(position, areaMask: areaMask);
 
             List<Vector3> points = new List<Vector3>();
             points.Add(position);
@@ -55,7 +55,7 @@ namespace DavidRochin {
             for (int i = 0; i < quality; i++) {
 
                 NavMeshHit hit;
-                if (NavMesh.Raycast(position, position + delta, out hit, NavMesh.AllAreas)) {
+                if (NavMesh.Raycast(position, position + delta, out hit, areaMask)) {
                     Vector3 safeHitPosition = hit.position - delta.normalized * 0.01f;
                     points.Add(safeHitPosition);
 
@@ -79,10 +79,10 @@ namespace DavidRochin {
             return points.ToArray();
         }
 
-        public static Vector3? Raycast(Vector3 position, Vector3 delta) {
-            position = Place(position);
+        public static Vector3? Raycast(Vector3 position, Vector3 delta, int areaMask = NavMesh.AllAreas) {
+            position = Place(position, areaMask:  areaMask);
             NavMeshHit hit;
-            if (NavMesh.Raycast(position, position + delta, out hit, NavMesh.AllAreas)) {
+            if (NavMesh.Raycast(position, position + delta, out hit, areaMask)) {
                 return hit.position;
             } else {
                 return null;
@@ -103,7 +103,7 @@ namespace DavidRochin {
 
         public static Vector3 Place(Vector3 point, out bool couldPlace, float maxDistance = 2f, int areaMask = NavMesh.AllAreas) {
             NavMeshHit hit;
-            bool valid = NavMesh.SamplePosition(point, out hit, maxDistance, NavMesh.AllAreas);
+            bool valid = NavMesh.SamplePosition(point, out hit, maxDistance, areaMask);
             if (valid) {
                 couldPlace = true;
                 return hit.position;
