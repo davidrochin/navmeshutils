@@ -114,6 +114,19 @@ namespace DavidRochin {
             
         }
 
+        /// <summary>
+        /// Turns nav mesh data into an actual <see cref="Mesh"/>.
+        /// </summary>
+        /// <returns></returns>
+        public static Mesh CreateMesh() {
+            NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
+            Mesh mesh = new Mesh();
+            mesh.name = "Nav Mesh Triangulation";
+            mesh.vertices = triangulation.vertices;
+            mesh.triangles = triangulation.indices;
+            return mesh;
+        }
+
     }
 
 }
